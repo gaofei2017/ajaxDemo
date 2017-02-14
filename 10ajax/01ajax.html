@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>ajax封装</title>
+</head>
+<body>
+
+</body>
+<script>
+    /**
+     * 发送请求，接收数据
+     * 封装一个支持get和post方式提交的ajax
+     */
+    function ajax(obj){
+        var xhr=new XMLHttpRequest();
+        //GET方式提交
+        /**
+         * 1.请求的参数在地址后面
+         * 2.发送的数据是null
+         */
+        alert(obj.type.toLocaleLowerCase()=='get');
+        if(obj.type.toLocaleLowerCase()=='get'){
+            //1.请求的参数在地址后面
+            //2.发送的数据是null
+            obj.url=obj.url+"?"+obj.data;
+            console.log(obj.url);
+            obj.data=null;
+        }
+        xhr.open(obj.type,obj.url);
+        //如果是post方式提交
+        if(obj.type.toLocaleLowerCase()=='post'){
+            /**
+             * 请求的参数不在地址后面
+             * 一个特殊的请求头 Content-Type:""
+             */
+            xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+
+        }
+        xhr.send(obj.data);
+        //接收到数据，然后把数据响应到客户端
+        xhr.onreadystatechange=function(){
+            //响应成功.
+            if(xhr.readyState==4 && xhr.status==200){
+                var data=xhr.responseText;
+
+                //数据响应完成的时候调用这个回调函数，
+                //把数据传给回调函数.
+                obj.success(data);
+
+            }
+        }
+
+    }
+    /**
+     * 传递多个参数使用对象封装
+     */
+    ajax({
+        url:"01ajax.php",
+        type:"get",
+        data:"username=zhangsan&age=14",
+        //通过传入一个回调函数
+        success:function(info){
+            console.log('==='+info);
+            //解析数据，把数据放在页面上的某个地方
+        }
+    });
+</script>
+</html>

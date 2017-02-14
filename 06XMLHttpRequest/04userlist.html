@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>用户列表</title>
+</head>
+<body>
+<input type="button" value="查询用户">
+<div class="box"></div>
+</body>
+<script>
+    /**
+     * 发送一个ajax请求从服务端获取批量用户数据
+     * 把批量数据展现在页面上
+     */
+    document.querySelector('input[type=button]').onclick=function(){
+        //1.创建XMLHttpRequest对象
+        var xhr= new XMLHttpRequest();
+        //2.发送请求 建立连接
+        xhr.open('POST','04userlist.php');
+        //3.设置请求头
+        xhr.setRequestHeader('Content-type',"application/x-www-form-urlencoded");
+        //4.发送数据
+        xhr.send(null);
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4 && xhr.status==200){
+                //解析服务端返回到客户端的数据
+                var data=xhr.responseText;
+                console.log(typeof data);
+                var arr=data.split(',');//将字符串转换为数组
+                console.log(arr);
+                var div="";
+                for(var i=0;i<arr.length;i++){
+                    div+='<div>'+arr[i]+'</div>';
+                }
+                document.querySelector('.box').innerHTML=div;
+            }
+        }
+    }
+</script>
+</html>

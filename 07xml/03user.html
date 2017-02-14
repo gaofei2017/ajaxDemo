@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>xml 数据交互</title>
+    <style>
+        table {
+            width: 600px;
+            border-collapse: collapse;
+        }
+        td {
+            height: 40px;
+            text-align: center;
+            border: 1px solid #CCC;
+        }
+        img{
+            width: 100px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value="查询书籍">
+<table>
+    <tr>
+        <td>讲师姓名</td>
+        <td>讲师性别</td>
+        <td>讲师年龄</td>
+        <td>讲师照片</td>
+    </tr>
+
+
+
+
+</table>
+</body>
+<script>
+    document.querySelector('input').onclick=function(){
+        //1.创建XMLHttpRequest对象
+        var xhr=new XMLHttpRequest();
+        //2.发送请求建立连接
+        xhr.open('POST','03user.php');
+        //3.设置请求头
+        xhr.setRequestHeader('Content-type',"application/x-www-form-urlencoded");
+        //4.发送数据
+        xhr.send(null);
+        //5.readyState状态改变时触发onreadystatechange事件
+        xhr.onreadystatechange=function(){
+            //6.请求完成响应就绪
+//            alert(xhr.readyState);
+//            alert(xhr.status==200);
+            if(xhr.readyState==4 && xhr.status==200){
+                //7.把服务器返回给客户端的字符串数据解析成xml对象
+                var data=xhr.responseXML;
+                console.log(data);
+                var users=data.getElementsByTagName('user');
+                for(var i=0;i<users.length;i++){
+                    var tr=document.createElement('tr');
+                    var td1=document.createElement('td');
+                    var td2=document.createElement('td');
+                    var td3=document.createElement('td');
+                    var td4=document.createElement('td');
+                    td1.innerHTML=users[i].getElementsByTagName('username')[0].innerHTML;
+                    td2.innerHTML=users[i].getElementsByTagName('sex')[0].innerHTML;
+                    td3.innerHTML=users[i].getElementsByTagName('age')[0].innerHTML;
+                    var img=document.createElement('img');
+                    var src=users[i].getElementsByTagName('url')[0].innerHTML;
+                    img.setAttribute('src',src);
+                    td4.appendChild(img);
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
+                    tr.appendChild(td4);
+                    document.querySelector('table').appendChild(tr);
+                }
+            }
+        }
+    }
+</script>
+</html>

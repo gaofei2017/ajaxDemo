@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>json</title>
+</head>
+<body>
+    <input id="button" type="button" value="json格式数据解析的方式">
+</body>
+<script>
+    document.querySelector('#button').onclick=function(){
+        //1.创建xhr对象
+        var xhr=new XMLHttpRequest();
+        //2.发送请求建立连接
+        xhr.open('get','01json.php');
+        //3.发送数据
+        xhr.send(null);
+        //4.状态readyStatus发生改变的时候触发onreadystatement事件
+        xhr.onreadystatechange=function(){
+            //5.请求已完成并响应已就绪
+            if(xhr.readyState==4&&xhr.status==200){
+                //6.接收服务器端返回到客户端的数据
+                //这里得到的是一个json格式组成的字符串
+                var data=xhr.responseText;
+                console.log(data);
+                /*
+                * 将json格式的字符串转换成javascript对象
+                * 1.eval()函数 拿括号将字符串包裹起来
+                * eval({"username":"张三"})
+                * 2.JSON.parse()
+                * */
+                var obj=JSON.parse(data);
+                console.log(obj);
+            }
+        }
+
+    }
+</script>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>xml 数据交互</title>
+    <style>
+        table {
+            width: 600px;
+            /*order-collapse 属性设置表格的边框是否被合并为一个单一的边框，
+            还是象在标准的 HTML 中那样分开显示。*/
+            border-collapse: collapse;
+
+        }
+        td {
+            height: 40px;
+            text-align: center;
+            border: 1px solid #CCC;
+        }
+    </style>
+</head>
+<body>
+<table>
+    <input type="button" value="查询书籍">
+    <tr>
+        <td>书名</td>
+        <td>作者</td>
+        <td>价格</td>
+        <td>出版社</td>
+    </tr>
+
+
+</table>
+</body>
+<script>
+    document.querySelector('input').onclick=function(){
+        //1.创建XMLHttpRequest对象
+        var xhr=new XMLHttpRequest();
+        //2.发送请求 建立连接
+        xhr.open('POST',"02xml.php");
+        //3.设置请求头
+        xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+        //4.发送数据
+        xhr.send(null);
+        //当readState状态改变时调用onreadystatechange
+        xhr.onreadystatechange=function(){
+            //请求已经完成并响应已经就绪
+            if(xhr.readyState==4 && xhr.status==200){
+                //dom解析 将xml字符串转换为dom对象
+//                var data=xhr.responseText;
+                var data=xhr.responseXML;
+                console.log(typeof data);
+                console.log(data);
+                var books=data.getElementsByTagName('book');
+                console.log(books);
+                console.log(books.length);
+
+                for(var i=0;i<books.length;i++){
+                    console.log(books[i])
+                    var tr=document.createElement('tr');
+                    var td1=document.createElement('td');
+                    var td2=document.createElement('td');
+                    var td3=document.createElement('td');
+                    var td4=document.createElement('td');
+                    td1.innerHTML=books[i].getElementsByTagName('bookName')[0].innerHTML;
+                    td2.innerHTML=books[i].getElementsByTagName('author')[0].innerHTML;
+                    td3.innerHTML=books[i].getElementsByTagName('price')[0].innerHTML;
+                    td4.innerHTML=books[i].getElementsByTagName('cbs')[0].innerHTML;
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    tr.appendChild(td3);
+                    tr.appendChild(td4);
+                    document.querySelector('table').appendChild(tr);
+                }
+            }
+        }
+    }
+</script>
+</html>

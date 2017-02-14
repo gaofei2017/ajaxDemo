@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>XMLHttpRequet对象</title>
+</head>
+<body>
+    <input type="button" value="xmlHttpRequest post发送请求">
+</body>
+<script>
+    //绑定事件
+    document.querySelector('input[type=button]').onclick=function(){
+        //1.创建XMLHttpRequest对象
+        var xhr=new XMLHttpRequest();
+        //2.发送请求建立连接
+        xhr.open("POST","02post.php");
+        /***
+         * post提交有一个特殊的请求头
+         * Content-Type:如果发送了一个这样的头发过去的数据会自动编码
+         */
+        //3.设置请求头
+        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        //4.发送数据
+        xhr.send("desc=今天是情人节哦");
+        //5.接收服务器返回的数据
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4 && xhr.status==200){
+
+//                var data=xhr.responseText;
+//                alert(data);
+            }
+        }
+    }
+</script>
+</html>

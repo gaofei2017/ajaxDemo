@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>省级联动</title>
+</head>
+<body>
+<select id="provinceId">
+    <option selected>请选择省份</option>
+</select>
+<select id="cityId">
+    <option selected>请选择城市</option>
+</select>
+<select id="areaId">
+    <option selected>请选择区县</option>
+</select>
+</body>
+<script>
+    /*
+    * 1.页面加载完毕，通过ajax获取数据
+    * 2.解析省份对应的数据
+    * 3.组装成option
+    * 4.放到第一个select里面provinceId
+    * 5.用户选中省份，根据省份找到省份下面的城市
+    * 6.当用户点击省份，获取到用户选中的省份
+    * 7.根据选中的省份从后台返回的数据里面进行查找
+    * 8.查找相同的省份的数据
+    * 9.根据省份找到对应的城市
+    * 10.遍历出来城市，创建option，往第二个select里放
+    * 11.找到了城市将城市组装成option
+    * 12.放在第二个select当中cityId
+    * 13.用户选中了城市，根据城市找到对应的县
+    * 14.找到县组装option
+    * 15.放在第三个select当中areaId
+    *
+    * */
+    window.onload=function(){
+        var obj;
+        var cities;
+        //1.创建xhr对象
+        var xhr=new XMLHttpRequest();
+        //2.发送请求建立连接
+        xhr.open('GET','01province.php');
+        //3.发送数据
+        xhr.send(null);
+        //4.当状态readyState发生改变时触发onreadystatechange事件
+        xhr.onreadystatechange=function(){
+            //5.请求完成并且响应就绪
+            if(xhr.readyState==4&&xhr.status==200){
+                //6.取到服务器端返回到客户端的数据
+                var data=xhr.responseText;
+//                console.log(data);
+                //7.将字符串数据解析成对象
+                obj=JSON.parse(data);
+                console.log(obj);
+                //8.遍历数组
+                for(var i=0;i<obj.length;i++){
+                    //得到省份
+                    var provinceName=obj[i].provinceName;
+                    console.log(provinceName);
+                    var option=document.createElement('option');
+                    option.innerHTML=provinceName;
+                    document.getElementById('provinceId').appendChild(option);
+                }
+            }
+        }
+        //给省份的select添加onchange事件，下拉框发生改变的时候触发
+        document.querySelector('#provinceId').onchange=function(){
+            var provinceName=this.value;//当前选择的省份名
+            //循环遍历数组对象
+            for(var i=0;i<obj.length;i++){
+                if(obj[i].provinceName==provinceName){
+                    cities=obj[i].cities;//当前省份对应的城市对象
+                    console.log(cities);
+//                    //每次选择省份触发事件更新城市时先清空所有城市名，保留原有样式
+                    document.getElementById('cityId').innerHTML=
+                            '<option selected>请选择城市</option>';
+                    document.getElementById('cityId').innerHTML=
+                            '<option selected>请选择区县</option>';
+                    //遍历当前城市数组对象
+                    for(var i=0;i<cities.length;i++){
+                        //得到当前城市数组下的所有城市名字
+                        var cityName=cities[i].cityName;
+                        var option =document.createElement('option');
+                        option.innerHTML=cityName;
+                        document.getElementById('cityId').appendChild(option);
+
+                    }
+                }
+            }
+        }
+        document.getElementById('cityId').onchange=function(){
+            //获取到当前城市名字
+            var cityName=this.value;
+            console.log(cityName);
+            //遍历所有城市
+            for(var i=0;i<cities.length;i++){
+                if(cities[i].cityName==cityName){
+                    //得到当前城市下所有的县
+                    var areas=cities[i].areas;
+                    //遍历当前城市下的所有县区域
+                    document.getElementById('areaId').innerHTML=
+                            '<option selected>请选择区县</option>';
+                    for(var i=0;i<areas.length;i++){
+                        var areaName=areas[i].areaName;
+                        console.log(areaName);
+                        var option=document.createElement('option');
+                        option.innerHTML=areaName;
+                        document.getElementById('areaId').appendChild(option);
+                    }
+                }
+            }
+        }
+    }
+</script>
+</html>

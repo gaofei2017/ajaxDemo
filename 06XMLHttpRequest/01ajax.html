@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>XMLHttpRequest对象的使用</title>
+</head>
+<body>
+    <input type="button" value="xmlHttpRequest 发送请求">
+</body>
+<script>
+    //绑定事件
+    document.querySelector('input[type=button]').onclick=function(){
+    // 1.创建XMLHttpRequest对象
+        var xhr=new XMLHttpRequest();
+    // 2.发送请求跟服务器建立连接
+        xhr.open("get","01ajax.php?username=zhangsan");
+    // 3.发送数据给服务器
+        xhr.send(null);
+    // 4.接收服务器返回的数据
+        /*
+        * 服务器返回数据就会调用onreadstatechange函数，这个函数会调用多次
+        * 因为服务器的数据不是一下立马全部写过来的
+        * 这个时候服务器在返回数据的时候还不断的给我们一些状态
+        * 0,1,2,3,4
+        * 2:接收到头信息
+        * 3:接收到响应主体
+        * 4：服务器的数据已经响应完成
+        * onreadystatechange	存储函数（或函数名），每当 readyState 属性改变时，就会调用该函数。
+         readyState
+         存有 XMLHttpRequest 的状态。从 0 到 4 发生变化。
+         0: 请求未初始化
+         1: 服务器连接已建立
+         2: 请求已接收
+         3: 请求处理中
+         4: 请求已完成，且响应已就绪
+         status
+         200: "OK"
+         404: 未找到页面
+        * 因此我们应该想办法获取这个状态并进行判断
+        *
+        * */
+        xhr.onreadystatechange=function(){
+            alert(xhr.readyState);
+            //  服务端已经响应完成
+            if(xhr.readyState==4){
+            //跟服务器交互，服务端返回一些状态
+            //200:成功 400:没有资源
+                alert('开始处理请求了！');
+            //状态码判断：响应完成不代表响应成功
+                if(xhr.status==200){
+            //处理服务端返回回来的数据
+            //responseText接收服务端返回的数据
+             var data=xhr.responseText;
+                    alert(data);
+                }
+            }
+        }
+    }
+</script>
+</html>

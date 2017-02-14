@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/01php/01.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01php/02.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01php/03.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01php/04.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01php/05.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01php/06.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01php/07.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01php/10.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/01php/file.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/02getpost/get.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/03login/login.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/04upload/userReg.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/05php/01.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/05php/02.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/06XMLHttpRequest/01ajax.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/06XMLHttpRequest/02post.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/06XMLHttpRequest/03userReg.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/06XMLHttpRequest/04userlist.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/07xml/03user.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/08json/01json.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/08json/02json.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/08json/02json.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/09province/01province.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/09province/01province.txt" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>客户端给服务器发送请求的几中方式</title>
+
+</head>
+<body>
+    <!--发送请求的几种方式
+            1:首先地址栏输入地址
+            2：<a href="" 点击超链接发送请求>
+            3：表单提交
+        请求的方式 get和post
+            get:
+            地址栏 src href
+            表单提交可以get也可以post
+            <form action="" method="GET/POST">
+            get方式提交怎么发送数据到服务器
+                get发送的数据都在地址后边
+                地址后边第一个字符必须是？
+                接下来是参数名称,参数对应的值&key=value
+
+    -->
+<a href="get.php?username=zhangsan&age=11">get方式提交</a>
+<!--post提交
+会把表单项里的数据自动提交到服务器，参数名 name="mobile"
+参数值是用户输入的值
+-->
+<form action="post.php" method="post">
+    手机号：<input type="text" name="mobile">
+    <input type="submit" value="post提交">
+</form>
+</body>
+</html>
